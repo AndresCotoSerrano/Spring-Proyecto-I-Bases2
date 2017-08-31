@@ -28,3 +28,8 @@ body{
 #navbar li a:hover,#navbar li a:active{
     color: #ACF600 !important;
 }
+.otroestilo { font-weight:bold ; font-size:22px ; color:green ; }
+#resultTable{
+overflow: visible;
+width: 200px;
+height: 200px; /*establece la altura máxima, lo que no entre quedará por debajo y saldra la barra de scroll*/
