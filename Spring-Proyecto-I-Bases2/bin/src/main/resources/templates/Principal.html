@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>badSQL</title>
+<meta charset=UTF-8>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="http://fonts.googleapis.com/css?family=Open+Sans">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link th:href="@{/css/StylePrincipal.css}" rel="stylesheet">
+</head>
+<body>
+	<div class="container-fluid">
+		<nav class="navbar navbar-default navbar-static-top" id="1">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+						aria-controls="navbar">
+						<span class="sr-only">Este boton despliega la barra de
+							navegacion</span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#"> <img
+						class="img-responsive img-circle" id="logo"
+						th:src="@{/img/logoSQL.png}" width="50" height="50"></a> <a
+						class="navbar-brand" href="#">badSQL </a>
+				</div>
+				<div id="navbar" class="navbar-collapse collapse">
+
+					<ul class="nav navbar-nav">
+						<li><a href="#">Entradas</a></li>
+						<li><a href="#">Salidas</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#">Login</a></li>
+						<li><a href="#">Registrarse</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">Consultas</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-sm-3">
+								<div class="panel panel-default">
+									<div class="panel-heading">NombreTabla1</div>
+									<div class="panel-body">
+										<ul>
+											<li>parametro1</li>
+											<li>parametro2</li>
+											<li>parametro3</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="panel panel-default">
+									<div class="panel-heading">NombreTabla2</div>
+									<div class="panel-body">
+										<ul>
+											<li>parametro1</li>
+											<li>parametro2</li>
+											<li>parametro3</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="panel panel-default">
+									<div class="panel-heading">NombreTabla3</div>
+									<div class="panel-body">
+										<ul>
+											<li>parametro1</li>
+											<li>parametro2</li>
+											<li>parametro3</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="panel panel-default">
+									<div class="panel-heading">NombreTabla4</div>
+									<div class="panel-body">
+										<ul>
+											<li>parametro1</li>
+											<li>parametro2</li>
+											<li>parametro3</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-8">
+				<div class="panel panel-default">
+					<div class="panel-heading">Consultas</div>
+					<div class="panel-body">
+						<textarea class="form-control" rows="20"></textarea>
+					</div>
+					<button type="button" class="btn btn-info" data-toggle="collapse"
+						data-target="#demo">Query</button>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="panel panel-default">
+					<div class="panel-heading">Resultado</div>
+					<div id="demo" class="collapse">
+						<div class="panel-body">
+							<div class="table-responsive">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th>Firstname</th>
+											<th>Lastname</th>
+											<th>Age</th>
+											<th>City</th>
+											<th>Country</th>
+										</tr>
+									</thead>
+									<tbody id="resultTable">
+										<tr>
+											<td>1</td>
+											<td>Anna</td>
+											<td>Pitt</td>
+											<td>35</td>
+											<td>New York</td>
+											<td>USA</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
