@@ -15,7 +15,7 @@ $(document)
 						borderRightColor : '#999'
 					});
 
-					$('#btAdd')
+					$('#btAddselect')
 							.click(
 									function() {
 										if (iCnt <= 19) {
@@ -25,7 +25,7 @@ $(document)
 											// Añadir caja de texto.
 											$(container)
 													.append(
-															'<input type=text class="input" id=tb'
+															'<input type=text class="input" id=tbselect'
 																	+ iCnt
 																	+ ' '
 																	+ 'value="Elemento de Texto '
@@ -38,12 +38,244 @@ $(document)
 														.createElement('div'));
 												$(divSubmit)
 														.append(
-																'<input type=button class="bt" onclick="GetTextValue()"'
-																		+ 'id=btSubmit value=Enviar />');
+																'<input type=button class="btselect" onclick="GetTextValue()"'
+																		+ 'id=btSubmitSelect value=Enviar />');
 
 											}
 
-											$('#main').after(container,
+											$('#select').after(container,
+													divSubmit);
+										} else { // se establece un limite
+											// para añadir elementos, 20
+											// es el limite
+
+											$(container)
+													.append(
+															'<label>Limite Alcanzado</label>');
+											$('#btAddselect').attr('class',
+													'bt-disable');
+											$('#btAddselect').attr('disabled',
+													'disabled');
+
+										}
+									});
+
+					$('#btRemoveselect').click(function() { // Elimina un elemento
+						// por click
+						if (iCnt != 0) {
+							$('#tbselect' + iCnt).remove();
+							iCnt = iCnt - 1;
+						}
+
+						if (iCnt == 0) {
+							$(container).empty();
+
+							$(container).remove();
+							$('#btSubmitSelect').remove();
+							$('#btAddselect').removeAttr('disabled');
+							$('#btAddselect').attr('class', 'bt')
+
+						}
+					});
+
+					$('#btRemoveAllselect').click(function() { // Elimina todos los
+						// elementos del
+						// contenedor
+
+						$(container).empty();
+						$(container).remove();
+						$('#btSubmitSelect').remove();
+						iCnt = 0;
+						$('#btAddselect').removeAttr('disabled');
+						$('#btAddselect').attr('class', 'btselect');
+
+					});
+				});
+
+// Obtiene los valores de los textbox al dar click en el boton "Enviar"
+var divValue, values = '';
+
+function GetTextValue() {
+
+	$(divValue).empty();
+	$(divValue).remove();
+	values = '';
+
+	$('.input').each(function() {
+		divValue = $(document.createElement('div')).css({
+			padding : '5px',
+			width : '200px'
+		});
+		values += this.value + '<br />'
+	});
+
+	$(divValue).append('<p><b>Tus valores añadidos</b></p>' + values);
+	$('body').append(divValue);
+
+}
+
+$(document)
+		.ready(
+				function() {
+					var iCnt = 0;
+
+					// Crear un elemento div añadiendo estilos CSS
+					var container = $(document.createElement('div')).css({
+						padding : '5px',
+						margin : '20px',
+						width : '170px',
+						border : '1px dashed',
+						borderTopColor : '#999',
+						borderBottomColor : '#999',
+						borderLeftColor : '#999',
+						borderRightColor : '#999'
+					});
+
+					$('#btAddfrom')
+							.click(
+									function() {
+										if (iCnt <= 19) {
+
+											iCnt = iCnt + 1;
+
+											// Añadir caja de texto.
+											$(container)
+													.append(
+															'<input type=text class="input" id=tbfrom'
+																	+ iCnt
+																	+ ' '
+																	+ 'value="Elemento de Texto '
+																	+ iCnt
+																	+ '" />');
+
+											if (iCnt == 1) {
+
+												var divSubmit = $(document
+														.createElement('div'));
+												$(divSubmit)
+														.append(
+																'<input type=button class="btfrom" onclick="GetTextValue()"'
+																		+ 'id=btSubmitfrom value=Enviar />');
+
+											}
+
+											$('#from').after(container,
+													divSubmit);
+										} else { // se establece un limite
+											// para añadir elementos, 20
+											// es el limite
+
+											$(container)
+													.append(
+															'<label>Limite Alcanzado</label>');
+											$('#btAddfrom').attr('class',
+													'bt-disable');
+											$('#btAddfrom').attr('disabled',
+													'disabled');
+
+										}
+									});
+
+					$('#btRemovefrom').click(function() { // Elimina un elemento
+						// por click
+						if (iCnt != 0) {
+							$('#tbfrom' + iCnt).remove();
+							iCnt = iCnt - 1;
+						}
+
+						if (iCnt == 0) {
+							$(container).empty();
+
+							$(container).remove();
+							$('#btSubmitfrom').remove();
+							$('#btAddfrom').removeAttr('disabled');
+							$('#btAddfrom').attr('class', 'btfrom')
+
+						}
+					});
+
+					$('#btRemoveAllfrom').click(function() { // Elimina todos los
+						// elementos del
+						// contenedor
+
+						$(container).empty();
+						$(container).remove();
+						$('#btSubmitfrom').remove();
+						iCnt = 0;
+						$('#btAddfrom').removeAttr('disabled');
+						$('#btAddfrom').attr('class', 'btfrom');
+
+					});
+				});
+
+// Obtiene los valores de los textbox al dar click en el boton "Enviar"
+var divValue, values = '';
+
+function GetTextValue() {
+
+	$(divValue).empty();
+	$(divValue).remove();
+	values = '';
+
+	$('.input').each(function() {
+		divValue = $(document.createElement('div')).css({
+			padding : '5px',
+			width : '200px'
+		});
+		values += this.value + '<br />'
+	});
+
+	$(divValue).append('<p><b>Tus valores añadidos</b></p>' + values);
+	$('body').append(divValue);
+
+}
+
+$(document)
+		.ready(
+				function() {
+					var iCnt = 0;
+
+					// Crear un elemento div añadiendo estilos CSS
+					var container = $(document.createElement('div')).css({
+						padding : '5px',
+						margin : '20px',
+						width : '170px',
+						border : '1px dashed',
+						borderTopColor : '#999',
+						borderBottomColor : '#999',
+						borderLeftColor : '#999',
+						borderRightColor : '#999'
+					});
+
+					$('#btAddwhere')
+							.click(
+									function() {
+										if (iCnt <= 19) {
+
+											iCnt = iCnt + 1;
+
+											// Añadir caja de texto.
+											$(container)
+													.append(
+															'<input type=text class="input" id=tbwhere'
+																	+ iCnt
+																	+ ' '
+																	+ 'value="Elemento de Texto '
+																	+ iCnt
+																	+ '" />');
+
+											if (iCnt == 1) {
+
+												var divSubmit = $(document
+														.createElement('div'));
+												$(divSubmit)
+														.append(
+																'<input type=button class="btwhere" onclick="GetTextValue()"'
+																		+ 'id=btSubmitwhere value=Enviar />');
+
+											}
+
+											$('#where').after(container,
 													divSubmit);
 										} else { // se establece un limite
 													// para añadir elementos, 20
@@ -52,18 +284,18 @@ $(document)
 											$(container)
 													.append(
 															'<label>Limite Alcanzado</label>');
-											$('#btAdd').attr('class',
+											$('#btAddwhere').attr('class',
 													'bt-disable');
-											$('#btAdd').attr('disabled',
+											$('#btAddwhere').attr('disabled',
 													'disabled');
 
 										}
 									});
 
-					$('#btRemove').click(function() { // Elimina un elemento
+					$('#btRemovewhere').click(function() { // Elimina un elemento
 														// por click
 						if (iCnt != 0) {
-							$('#tb' + iCnt).remove();
+							$('#tbwhere' + iCnt).remove();
 							iCnt = iCnt - 1;
 						}
 
@@ -71,14 +303,14 @@ $(document)
 							$(container).empty();
 
 							$(container).remove();
-							$('#btSubmit').remove();
-							$('#btAdd').removeAttr('disabled');
-							$('#btAdd').attr('class', 'bt')
+							$('#btSubmitwhere').remove();
+							$('#btAddwhere').removeAttr('disabled');
+							$('#btAddwhere').attr('class', 'btwhere')
 
 						}
 					});
 
-					$('#btRemoveAll').click(function() { // Elimina todos los
+					$('#btRemoveAllwhere').click(function() { // Elimina todos los
 															// elementos del
 															// contenedor
 
@@ -86,8 +318,8 @@ $(document)
 						$(container).remove();
 						$('#btSubmit').remove();
 						iCnt = 0;
-						$('#btAdd').removeAttr('disabled');
-						$('#btAdd').attr('class', 'bt');
+						$('#btAddwhere').removeAttr('disabled');
+						$('#btAddwhere').attr('class', 'btwhere');
 
 					});
 				});
