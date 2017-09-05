@@ -15,6 +15,7 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link th:href="@{/css/StylePrincipal.css}" rel="stylesheet">
+<script type="text/javascript" th:src="@{/js/camposDinamicos.js}"></script>
 </head>
 <body>
 	<div class="container-fluid">
@@ -41,7 +42,8 @@
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="#">Login</a></li>
-						<li><a href="CargarArchivo.html"><span class="glyphicon glyphicon-floppy-open"></span> Cargar Archivo</a></li>
+						<li><a href="CargarArchivo.html"><span
+								class="glyphicon glyphicon-floppy-open"></span> Cargar Archivo</a></li>
 					</ul>
 				</div>
 			</div>
@@ -179,7 +181,12 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">Consultas</div>
 					<div class="panel-body">
-						<textarea class="form-control" rows="20"></textarea>
+							<div id="main">
+								<input type="button" id="btAdd" value="Añadir Elemento"
+									class="bt" /> <input type="button" id="btRemove"
+									value="Eliminar Elemento" class="bt" /> <input type="button"
+									id="btRemoveAll" value="Eliminar Todo" class="bt" /><br />
+							</div>
 					</div>
 					<button type="button" class="btn btn-info" data-toggle="collapse"
 						data-target="#demo">Query</button>
@@ -220,5 +227,6 @@
 			</div>
 		</div>
 	</div>
+
 </body>
 </html>
