@@ -41,58 +41,20 @@
 						<li><a href="#">Salidas</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#">Login</a></li>
+						<li><a href="MostrarTablas.html">Ver Tablas</a></li>
 						<li><a href="CargarArchivo.html"><span
 								class="glyphicon glyphicon-floppy-open"></span> Cargar Archivo</a></li>
 					</ul>
 				</div>
 			</div>
 		</nav>
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="panel panel-default">
-					<div th:if="${farmaco}">
-						<div th:if="${farmaco.isEmpty()}">
-							<br>
-							<div class="alert alert-danger">
-								<strong th:text="#{errorList}"></strong>
-								<h4 th:text="#{messageErrorList}"></h4>
-							</div>
-						</div>
-					</div>
-
-					<div th:if="${!farmaco.isEmpty()}">
-						<div class="panel-heading">Consultas</div>
-						<div class="panel-body">
-							<div class="row">
-								<div class="col-sm-3" th:each="entry,status : ${farmaco}">
-									<div class="panel panel-default">
-										<div class="panel-heading" th:text="${name}"></div>
-										<div class="panel-body">
-											<ul>
-												<li th:text="${parametro1}"></li>
-												<li th:text="${entry.nombre}"></li>
-												<li th:text="${entry.desarrollador}"></li>
-												<li th:text="${entry.indicaciones}"></li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<!-- panel body-->
-							</div>
-							<!-- panel-body-->
-						</div>
-						<!-- verificacion que la lista tenga elementos -->
-					</div>
-				</div>
-			</div>
-		</div>
+		
 	</div>
 	<div class=container-fluid>
 		<div class="row">
 			<div class="col-sm-8">
 				<div class="panel panel-default">
-					<div class="panel-heading">Consultas</div>
+					<div class="panel-heading">Tablas</div>
 					<div class="panel-body">
 						<div id="select">
 							<input type="button" id="btAddselect" value="Add Select"
