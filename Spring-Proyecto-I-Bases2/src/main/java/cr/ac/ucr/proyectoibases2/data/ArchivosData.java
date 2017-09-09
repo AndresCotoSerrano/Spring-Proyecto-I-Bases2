@@ -14,10 +14,10 @@ public class ArchivosData {
 	
 	private ObjectInputStream ois;
     private ObjectOutputStream oos;
-    private String nombre;
-    private String ruta;
+    public String nombre;
+    public String ruta;
     public static final String SEPARADOR = ";";
-    public static final String QUOTE = "\"";
+    public static final String SLASH = "\"";
     
 
     public void crearArchivo(String nombre) {
@@ -39,14 +39,12 @@ public class ArchivosData {
                 String[] celdas = line.split(SEPARADOR);
                 System.out.println(Arrays.toString(celdas));
 
-                celdas = removeTrailingQuotes(celdas);
+                celdas = eliminaCampos(celdas);
                 System.out.println(Arrays.toString(celdas));
 
                 line = br.readLine();
             }
-
         } catch (Exception e) {
-
         } finally {
             if (null != br) {
                 br.close();
@@ -54,12 +52,11 @@ public class ArchivosData {
         }
     }
 
-    private static String[] removeTrailingQuotes(String[] fields) {
-        String result[] = new String[fields.length];
+    public String[] eliminaCampos(String[] campos) {
+        String result[] = new String[campos.length];
         for (int i = 0; i < result.length; i++) {
-            result[i] = fields[i].replaceAll("^" + QUOTE, "").replaceAll(QUOTE + "$", "");
+            result[i] = campos[i].replaceAll("^" + SLASH, "").replaceAll(SLASH + "$", "");
         }
         return result;
     }
-
 }
