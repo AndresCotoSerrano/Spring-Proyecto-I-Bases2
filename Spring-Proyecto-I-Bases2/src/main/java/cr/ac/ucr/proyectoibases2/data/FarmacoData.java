@@ -11,7 +11,7 @@ public class FarmacoData {
     public List<Farmaco> GetAllFarmacos(){
         LinkedList<Farmaco> farmacoTable= new LinkedList<Farmaco>();
         
-        for(int i=0;i<=10;i++) {
+        for(int i=0;i<=5;i++) {
             Farmaco f= new Farmaco(i,"Farmaco" + i, "Desarrollador" + i, "Indicaciones" + i);
             farmacoTable.add(f);
         }

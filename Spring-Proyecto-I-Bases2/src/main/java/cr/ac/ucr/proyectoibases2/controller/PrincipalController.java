@@ -19,44 +19,10 @@ public class PrincipalController {
     @RequestMapping(value = {"/Principal"}, method = RequestMethod.GET)
     public String Principal(Model model) {
         farmacoList = farmacoBusiness.GetAllFarmacos();
+       Farmaco f = new Farmaco();
         model.addAttribute("farmaco", farmacoList);
+        model.addAttribute("name",f.getClass().getSimpleName());
         return "Principal";
-    }
-
-    public int recorreID() {
-        int id = 0;
-        farmacoList = farmacoBusiness.GetAllFarmacos();
-        for (Farmaco f : farmacoList) {
-            id = f.getId();
-        }
-        return id;
-    }
-
-    public String recorreNombre() {
-        String nombre = "";
-        farmacoList = farmacoBusiness.GetAllFarmacos();
-        for (Farmaco f : farmacoList) {
-            nombre = f.getNombre();
-        }
-        return nombre;
-    }
-
-    public String recorreDesarrollador() {
-        String desarrollador = "";
-        farmacoList = farmacoBusiness.GetAllFarmacos();
-        for (Farmaco f : farmacoList) {
-            desarrollador = f.getDesarrollador();
-        }
-        return desarrollador;
-    }
-
-    public String recorreIndicaciones() {
-        String indicaciones = "";
-        farmacoList = farmacoBusiness.GetAllFarmacos();
-        for (Farmaco f : farmacoList) {
-            indicaciones = f.getIndicaciones();
-        }
-        return indicaciones;
     }
 
 }
