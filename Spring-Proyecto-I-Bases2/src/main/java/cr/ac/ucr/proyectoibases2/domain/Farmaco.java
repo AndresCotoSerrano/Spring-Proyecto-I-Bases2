@@ -16,6 +16,9 @@ public class Farmaco {
 		this.indicaciones = indicaciones;
 		
 	}
+	public Farmaco() {
+	    
+	}
 
 
 	public int getId() {

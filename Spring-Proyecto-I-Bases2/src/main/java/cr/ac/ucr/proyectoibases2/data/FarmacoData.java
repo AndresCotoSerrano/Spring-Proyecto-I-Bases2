@@ -3,8 +3,10 @@ package cr.ac.ucr.proyectoibases2.data;
 import java.util.LinkedList;
 import java.util.List;
 
-import cr.ac.ucr.proyectoibases2.domain.Farmaco;
+import org.springframework.stereotype.Repository;
 
+import cr.ac.ucr.proyectoibases2.domain.Farmaco;
+@Repository
 public class FarmacoData {
     public List<Farmaco> GetAllFarmacos(){
         LinkedList<Farmaco> farmacoTable= new LinkedList<Farmaco>();
