@@ -14,15 +14,16 @@ public class ArchivosData {
 	
 	private ObjectInputStream ois;
     private ObjectOutputStream oos;
-    public String nombre;
-    public String ruta;
+    private String nombre;
+    public final String RUTA =  ".../.../Archivos";
     public static final String SEPARADOR = ";";
     public static final String SLASH = "\"";
+    
     
 
     public void crearArchivo(String nombre) {
         try {
-            oos = new ObjectOutputStream(new FileOutputStream(ruta + nombre));
+            oos = new ObjectOutputStream(new FileOutputStream(RUTA + nombre));
             this.nombre = nombre;
             oos.close();
         } catch (Exception e) {
@@ -33,7 +34,7 @@ public class ArchivosData {
 	public void leerArchivo() throws IOException {
         BufferedReader br = null;
         try {
-            br = new BufferedReader(new FileReader("files/Libro1.csv"));
+            br = new BufferedReader(new FileReader(RUTA + nombre));
             String line = br.readLine();
             while (null != line) {
                 String[] celdas = line.split(SEPARADOR);
