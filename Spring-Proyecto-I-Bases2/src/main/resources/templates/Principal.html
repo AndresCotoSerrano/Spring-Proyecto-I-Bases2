@@ -52,13 +52,11 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">Tablas</div>
 					<div class="panel-body">
-						<div class="form-group">
-							<label for="Query">Comment:</label>
-							<textarea class="form-control" rows="10" id="query"></textarea>
-						</div>
+						<form action = "/Principal" method="POST">
+							<input type="text" name="query"> <input type="submit"
+								value="Query">
+						</form>
 					</div>
-					<button type="button" class="btn btn-info" data-toggle="collapse"
-						data-target="#demo">Query</button>
 				</div>
 			</div>
 			<div class="col-sm-4">
