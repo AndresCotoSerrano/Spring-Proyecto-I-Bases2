@@ -11,12 +11,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PrincipalController {
     @RequestMapping(value = { "/Principal" }, method = RequestMethod.GET)
     public String Principal(Model model) {
-
         return "Principal";
     }
 
     @RequestMapping(value = "/Principal", method = RequestMethod.POST)
-    public void recibeQuery(@RequestParam("query") String query) {
+    public String recibeQuery(@RequestParam("query") String query) {
         String[] auxSelect = query.split("select");
         String aux = converToString(auxSelect);
         String[] auxFrom = aux.split("from");
@@ -27,6 +26,7 @@ public class PrincipalController {
         String auxConsulta = converToString(consulta);
         String[] result = auxConsulta.split(" ");
         mostrar(result);
+        return "Principal";
     }
 
     public void mostrar(String[] consulta) {
