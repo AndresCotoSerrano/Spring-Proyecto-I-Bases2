@@ -16,16 +16,22 @@ public class PrincipalController {
 
     @RequestMapping(value = "/Principal", method = RequestMethod.POST)
     public String recibeQuery(@RequestParam("query") String query) {
-        String[] auxSelect = query.split("select");
-        String aux = converToString(auxSelect);
-        String[] auxFrom = aux.split("from");
-        String aux1 = converToString(auxFrom);
-        String[] auxWhere = aux1.split("where");
-        String aux2 = converToString(auxWhere);
-        String[] consulta = aux2.split(",");
-        String auxConsulta = converToString(consulta);
-        String[] result = auxConsulta.split(" ");
-        mostrar(result);
+        String[] auxQuery = query.split(" ");
+        String auxSelect = select(auxQuery);
+        String[] auxSplitSelect = auxSelect.split("select");
+        String select = converToString(auxSplitSelect);
+        System.out.println(select);
+        // aca funciona perfectamente enviar la parte del select
+        String auxFrom = from(auxQuery);
+        String[] auxSplitFrom = auxFrom.split("from");
+        String from = converToString(auxSplitFrom);
+        System.out.println(from);
+        //aca funciona perfectamente enviar la parte del from
+        String auxWhere = where(auxQuery);
+        String[] auxSplitWhere = auxWhere.split("where");
+        String where = converToString(auxSplitWhere);
+        System.out.println(where);
+        //aca funciona perfectamente enviar la parte del where
         return "Principal";
     }
 
@@ -38,9 +44,46 @@ public class PrincipalController {
     public String converToString(String[] consulta) {
         String result = "";
         for (String s : consulta) {
-            result += s + "\n";
+            result += s;
         }
-        return result.trim();
+        return result;
     }
 
+    public String select(String[] consulta) {
+        String result = "";
+        for (String select : consulta) {
+            if (select.equalsIgnoreCase("select")) {
+                continue;
+            } else if (select.equalsIgnoreCase("from")) {
+                break;
+            }
+
+            result += select;
+        }
+
+        return result;
+    }
+
+    public String from(String[] consulta) {
+        String result = "";
+        for (String from : consulta) {
+            if (from.equalsIgnoreCase("where")) {
+                break;
+            }
+            result += from;
+        }
+        int inicio = result.indexOf("from");
+        String substring = result.substring(inicio);
+        return substring;
+    }
+
+    public String where(String[] consulta) {
+        String result = "";
+        for (String where : consulta) {
+            result += where;
+        }
+        int inicio = result.indexOf("where");
+        String substring = result.substring(inicio);
+        return substring;
+    }
 }
