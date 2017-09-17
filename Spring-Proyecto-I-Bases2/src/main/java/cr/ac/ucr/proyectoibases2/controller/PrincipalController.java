@@ -18,6 +18,6 @@ public class PrincipalController {
 
         return "Principal";
     }
-
-
+  // @RequestMapping(value = {"/Principal"}, method = RequestMethod.POST)
+   // public 
 }
