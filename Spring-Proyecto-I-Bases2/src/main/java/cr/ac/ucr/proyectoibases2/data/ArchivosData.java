@@ -16,8 +16,6 @@ public class ArchivosData {
     private ObjectOutputStream oos;
     private String nombre;
     public final String RUTA =  ".../.../Archivos";
-    public static final String SEPARADOR = ";";
-    public static final String SLASH = "\"";
     
     
 
@@ -31,33 +29,45 @@ public class ArchivosData {
         }
     }
 	
-	public void leerArchivo() throws IOException {
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new FileReader(RUTA + nombre));
-            String line = br.readLine();
-            while (null != line) {
-                String[] celdas = line.split(SEPARADOR);
-                System.out.println(Arrays.toString(celdas));
-
-                celdas = eliminaCampos(celdas);
-                System.out.println(Arrays.toString(celdas));
-
-                line = br.readLine();
-            }
-        } catch (Exception e) {
-        } finally {
-            if (null != br) {
-                br.close();
+    public String nombreTabla(String archivo) throws FileNotFoundException, IOException {
+        String nombre = "";
+        String sCadena = null;
+        int contador = 1;
+        BufferedReader bf = new BufferedReader(new FileReader(RUTA + archivo));
+        while ((sCadena = bf.readLine()) != null) {
+            if (contador == 1) {
+                nombre = sCadena + "\n";
+                ++contador;
+                break;
             }
         }
+        return nombre;
     }
 
-    public String[] eliminaCampos(String[] campos) {
-        String result[] = new String[campos.length];
-        for (int i = 0; i < result.length; i++) {
-            result[i] = campos[i].replaceAll("^" + SLASH, "").replaceAll(SLASH + "$", "");
+    public String[] nombreColumna(String archivo) throws FileNotFoundException, IOException {
+        String[] columnas = null;
+        String sCadena = null;
+        int contador = 1;
+        BufferedReader bf = new BufferedReader(new FileReader(RUTA + archivo));
+        while ((sCadena = bf.readLine()) != null) {
+            if (contador == 3) {
+                columnas = sCadena.split(",");
+            }
+            ++contador;
         }
+        return columnas;
+    }
+    
+    public String leerArchivo(String nombre) throws IOException {
+        String result = "";
+
+        String sCadena = null;
+        BufferedReader bf = new BufferedReader(new FileReader(RUTA + nombre));
+        while ((sCadena = bf.readLine()) != null) {
+            result += sCadena + "\n";
+        }
+        result.replaceAll(" ", "");
         return result;
     }
+    
 }
