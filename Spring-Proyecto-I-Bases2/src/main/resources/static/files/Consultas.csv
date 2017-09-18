@@ -1,0 +1,17 @@
+Consultas de Ejemplo
+SELECT S.name,S.tot_cred, T.grade
+FROM student S, takes T
+WHERE S.id = T.student_id
+  AND course_id = 'IF-5100'
+  AND sec_id = 21
+  AND semester = '2'
+  AND year = 2017
+
+SELECT I.id
+      ,I.name
+      ,I.dept_name
+      ,T.course_id
+      ,T.sec_id
+      ,T.semester
+FROM instructor I, teaches T
+WHERE I.id = T.instructor_id AND year = 2009

@@ -43,11 +43,40 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">Cargar el archivo deseado:</div>
 					<div class="panel-body"></div>
-					<button type="button" class="btn btn-info" data-toggle="collapse"
-						data-target="#demo">Cargar</button>
+					<form id="upload-file-form">
+						<label for="upload-file-input">Seleccione el archivo que desea cargar</label> <input
+							id="upload-file-input" type="file" name="cargararchivo"
+							accept=".csv" /> <br /> <span id="upload-file-message"></span>
+					</form>
 				</div>
 			</div>
 		</div>
 	</div>
+	<script>
+		$(document).ready(function() {
+			$("#upload-file-input").on("change", cargarArchivo);
+		});
+
+		function cargarArchivo() {
+			$.ajax({
+				url : "/cargarArchivo",
+				type : "POST",
+				data : new FormData($("#upload-file-form")[0]),
+				enctype : 'multipart/form-data',
+				processData : false,
+				contentType : false,
+				cache : false,
+				success : function() {
+					// Handle upload success
+					$("#upload-file-message").text("Cargado exitosamente");
+				},
+				error : function() {
+					// Handle upload error
+					$("#upload-file-message")
+							.text("Error de carga del archivo");
+				}
+			});
+		} // function uploadFile
+	</script>
 </body>
 </html>
