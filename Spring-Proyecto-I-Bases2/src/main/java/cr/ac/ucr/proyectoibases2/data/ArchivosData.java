@@ -70,4 +70,47 @@ public class ArchivosData {
         return result;
     }
     
+    public String[][] datosTabla(String nombre) throws FileNotFoundException, IOException {
+        String[][] datos = null;
+        String linea = null;
+        String[] dato = null;
+        String sCadena = null;
+        int cont = 1;
+        int contador = 1;
+        int cuenta = 1;
+
+        BufferedReader bf = new BufferedReader(new FileReader(RUTA + nombre));
+
+        while ((sCadena = bf.readLine()) != null) {
+            if (contador >= 5 && !sCadena.equals("")) {
+                ++cont;
+                dato = sCadena.split(",");
+            }
+            ++contador;
+        }
+
+        int columnas = dato.length;
+        boolean bandera = false;
+        int numDatos = 0;
+        BufferedReader bfs = new BufferedReader(new FileReader(RUTA + nombre));
+        datos = new String[cont][columnas];
+        while ((linea = bfs.readLine()) != null) {
+            bandera = false;
+            dato = linea.split(",");
+            if (cuenta >= 5 && dato.length == columnas) {
+                for (int i = 0; i < cont; i++) {
+                    if (i == numDatos && bandera == false) {
+                        for (int j = 0; j < columnas; j++) {
+                            datos[i][j] = dato[j];
+                        }
+                        bandera = true;
+                    }
+                }
+                numDatos++;
+            }
+            cuenta++;
+        }
+        return datos;
+    }
+    
 }
