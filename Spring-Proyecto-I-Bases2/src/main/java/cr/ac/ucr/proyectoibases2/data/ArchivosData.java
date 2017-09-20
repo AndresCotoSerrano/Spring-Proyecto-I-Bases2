@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.HashMap;
 
 
 public class ArchivosData {
@@ -15,6 +16,15 @@ public class ArchivosData {
     private ObjectOutputStream oos;
     private String nombre;
     public final String RUTA = ".../.../Archivos";
+    public HashMap mapaNombres;
+    public HashMap mapaColumnas;
+    public HashMap mapaDatos;
+    
+    public ArchivosData() {
+        this.mapaNombres = new HashMap<String, String>();
+        this.mapaColumnas = new HashMap<String, String[]>();
+        this.mapaDatos = new HashMap<String, String[][]>();
+    }
 
     public void crearArchivo(String nombre) {
         try {
@@ -39,6 +49,7 @@ public class ArchivosData {
             }
         }
         bf.close();
+        mapaNombres.put(archivo, nombre);
         return nombre;
     }
 
@@ -54,6 +65,7 @@ public class ArchivosData {
             ++contador;
         }
         bf.close();
+        mapaColumnas.put(archivo, columnas);
         return columnas;
     }
 
@@ -111,6 +123,7 @@ public class ArchivosData {
             cuenta++;
         }
         bfs.close();
+        mapaDatos.put(nombre, datos);
         return datos;
     }
 
