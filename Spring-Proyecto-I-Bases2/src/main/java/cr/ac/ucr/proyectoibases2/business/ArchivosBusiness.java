@@ -14,8 +14,8 @@ public class ArchivosBusiness {
         archivosData.crearArchivo(nombre);
                 
     }
-    public void leerArchivo() throws IOException {
-        archivosData.leerArchivo();
+    public String leerArchivo(String nombre) throws IOException {
+       return archivosData.leerArchivo(nombre);
     }
     public String[] eliminaCampos(String [] campos) {
         return archivosData.eliminaCampos(campos);
