@@ -65,9 +65,9 @@ public class ArchivosData {
         while ((sCadena = bf.readLine()) != null) {
             result += sCadena + "\n";
         }
-        bf.close();
         result.replaceAll(" ", "");
-        return result;
+         bf.close();
+         return result;
     }
 
     public String[][] datosTabla(String nombre) throws FileNotFoundException, IOException {
