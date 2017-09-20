@@ -25,4 +25,7 @@ public class ArchivosBusiness {
    public String [] nombreColumna(String archivo) throws FileNotFoundException, IOException {
        return archivosData.nombreColumna(archivo);
    }
+   public String[][] datosTabla(String nombre) throws FileNotFoundException, IOException{
+       return archivosData.datosTabla(nombre);
+   }
 }
