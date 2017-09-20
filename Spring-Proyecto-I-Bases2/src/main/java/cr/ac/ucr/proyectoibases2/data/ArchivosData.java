@@ -41,6 +41,7 @@ public class ArchivosData {
                 break;
             }
         }
+        bf.close();
         return nombre;
     }
 
@@ -55,6 +56,7 @@ public class ArchivosData {
             }
             ++contador;
         }
+        bf.close();
         return columnas;
     }
     

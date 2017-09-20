@@ -1,5 +1,6 @@
 package cr.ac.ucr.proyectoibases2.business;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,11 @@ public class ArchivosBusiness {
     public String leerArchivo(String nombre) throws IOException {
        return archivosData.leerArchivo(nombre);
     }
-    public String[] eliminaCampos(String [] campos) {
-        return archivosData.eliminaCampos(campos);
-    }
+    
+   public String nombreTabla (String archivo) throws FileNotFoundException, IOException {
+       return archivosData.nombreTabla(archivo);
+   }
+   public String [] nombreColumna(String archivo) throws FileNotFoundException, IOException {
+       return archivosData.nombreColumna(archivo);
+   }
 }
