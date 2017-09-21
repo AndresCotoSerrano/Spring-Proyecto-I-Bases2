@@ -86,4 +86,65 @@ public class PrincipalController {
         String substring = result.substring(inicio);
         return substring;
     }
+    
+    
+    public String[][] ejecutarSelect(String consulta, String[] tabla, String[][] datos){
+        
+        String[] tamanoConsulta = consulta.split(",");
+        int cantidadVariables = 0;
+        String[][] respuesta = new String[datos.length][tamanoConsulta.length];
+        String[] aux = new String[tabla.length];
+        
+        cantidadVariables = tamanoConsulta.length;
+        if(cantidadVariables == 1){
+            aux = selectUnico(consulta, datos, tabla);
+            for (int i = 0; i < aux.length; i++) {
+                respuesta[i][0] = aux[i];
+            }
+        }else{
+            String[][] auxMatriz = selectMultiple(consulta, tabla, datos);
+            for (int i = 0; i < aux.length; i++) {
+                for (int j = 0; j < auxMatriz[i].length; j++) {
+                    respuesta[i][j] = auxMatriz[i][j];
+                }
+            }
+        }
+        return respuesta;
+    }
+
+	public String[] selectUnico(String consulta, String[][] datos, String[] columnas){
+		int posicion = 0;
+		String[] result = new String[datos.length];
+    
+    
+		for (int i = 0; i < columnas.length; i++) {
+			if(consulta.equalsIgnoreCase(columnas[i])){
+				posicion = i;
+			}
+		}
+    
+		for (int i = 0; i < datos.length; i++) {
+			result[i] = datos[i][posicion];
+		}
+		return result;
+	}
+	
+	
+    public String[][] selectMultiple(String consulta, String[] tabla, String[][] datos){
+        
+        String[] tamanoConsulta = consulta.split(",");
+        String[][] respuesta = new String[datos.length][tamanoConsulta.length];
+        
+        for (int i = 0; i < tamanoConsulta.length; i++) {
+            String[] aux = selectUnico(tamanoConsulta[i], datos, tabla);
+            
+            for (int j = 0; j < datos.length; j++) {
+                respuesta[j][i] = aux[j];
+            }   
+        }
+        return respuesta;
+    }
+    
+
+    
 }
