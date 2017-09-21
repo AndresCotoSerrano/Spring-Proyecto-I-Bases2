@@ -43,39 +43,7 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="panel panel-default">
-					<div th:if="${farmaco}">
-						<div th:if="${farmaco.isEmpty()}">
-							<br>
-							<div class="alert alert-danger">
-								<strong th:text="#{errorList}"></strong>
-								<h4 th:text="#{messageErrorList}"></h4>
-							</div>
-						</div>
-					</div>
 
-					<div th:if="${!farmaco.isEmpty()}">
-						<div class="panel-heading">Consultas</div>
-						<div class="panel-body">
-							<div class="row">
-								<div class="col-sm-3" th:each="entry,status : ${farmaco}">
-									<div class="panel panel-default">
-										<div class="panel-heading" th:text="${name}"></div>
-										<div class="panel-body">
-											<ul>
-												<li th:text="${entry.id}"></li>
-												<li th:text="${entry.nombre}"></li>
-												<li th:text="${entry.desarrollador}"></li>
-												<li th:text="${entry.indicaciones}"></li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<!-- panel body-->
-							</div>
-							<!-- panel-body-->
-						</div>
-						<!-- verificacion que la lista tenga elementos -->
-					</div>
 				</div>
 			</div>
 		</div>

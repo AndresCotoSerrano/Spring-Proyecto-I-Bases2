@@ -19,13 +19,13 @@ public class ArchivosBusiness {
        return archivosData.leerArchivo(nombre);
     }
     
-   public String nombreTabla (String archivo) throws FileNotFoundException, IOException {
-       return archivosData.nombreTabla(archivo);
+   public void nombreTabla (String archivo) throws FileNotFoundException, IOException {
+      archivosData.llenaHashNombreTabla(archivo);
    }
-   public String [] nombreColumna(String archivo) throws FileNotFoundException, IOException {
-       return archivosData.nombreColumna(archivo);
+   public void nombreColumna(String archivo) throws FileNotFoundException, IOException {
+      archivosData.llenaHashNombreColumna(archivo);
    }
-   public String[][] datosTabla(String nombre) throws FileNotFoundException, IOException{
-       return archivosData.datosTabla(nombre);
+   public void datosTabla(String nombre) throws FileNotFoundException, IOException{
+      archivosData.llenaHashDatosTabla(nombre);
    }
 }

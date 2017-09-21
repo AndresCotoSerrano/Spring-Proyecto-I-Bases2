@@ -15,16 +15,11 @@ public class ArchivosData {
     private ObjectInputStream ois;
     private ObjectOutputStream oos;
     private String nombre;
-    public final String RUTA = ".../.../Archivos";
-    public HashMap mapaNombres;
-    public HashMap mapaColumnas;
-    public HashMap mapaDatos;
-    
-    public ArchivosData() {
-        this.mapaNombres = new HashMap<String, String>();
-        this.mapaColumnas = new HashMap<String, String[]>();
-        this.mapaDatos = new HashMap<String, String[][]>();
-    }
+    public final String RUTA = "src/main/resources/static/files/";
+    public HashMap<String, String> mapaNombres =new HashMap<String, String>();
+    public HashMap<String, String []> mapaColumnas = new HashMap<String, String[]>();
+    public HashMap<String, String [][]> mapaDatos = new HashMap<String, String[][]>();
+
 
     public void crearArchivo(String nombre) {
         try {
@@ -36,7 +31,7 @@ public class ArchivosData {
         }
     }
 
-    public String nombreTabla(String archivo) throws FileNotFoundException, IOException {
+    public void llenaHashNombreTabla(String archivo) throws FileNotFoundException, IOException {
         String nombre = "";
         String sCadena = null;
         int contador = 1;
@@ -50,10 +45,9 @@ public class ArchivosData {
         }
         bf.close();
         mapaNombres.put(archivo, nombre);
-        return nombre;
     }
 
-    public String[] nombreColumna(String archivo) throws FileNotFoundException, IOException {
+    public void llenaHashNombreColumna(String archivo) throws FileNotFoundException, IOException {
         String[] columnas = null;
         String sCadena = null;
         int contador = 1;
@@ -66,7 +60,6 @@ public class ArchivosData {
         }
         bf.close();
         mapaColumnas.put(archivo, columnas);
-        return columnas;
     }
 
     public String leerArchivo(String nombre) throws IOException {
@@ -82,7 +75,7 @@ public class ArchivosData {
          return result;
     }
 
-    public String[][] datosTabla(String nombre) throws FileNotFoundException, IOException {
+    public void llenaHashDatosTabla(String nombre) throws FileNotFoundException, IOException {
         String[][] datos = null;
         String linea = null;
         String[] dato = null;
@@ -124,7 +117,6 @@ public class ArchivosData {
         }
         bfs.close();
         mapaDatos.put(nombre, datos);
-        return datos;
     }
 
 }
