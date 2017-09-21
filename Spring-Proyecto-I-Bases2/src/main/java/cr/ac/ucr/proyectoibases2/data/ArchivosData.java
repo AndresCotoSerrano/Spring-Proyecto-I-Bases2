@@ -99,7 +99,7 @@ public class ArchivosData {
         boolean bandera = false;
         int numDatos = 0;
         BufferedReader bfs = new BufferedReader(new FileReader(RUTA+archivo));
-        datos = new String[cont][columnas];
+        datos = new String[cont/2][columnas];
         while ((linea = bfs.readLine()) != null) {
             bandera = false;
             dato = linea.split(",");
