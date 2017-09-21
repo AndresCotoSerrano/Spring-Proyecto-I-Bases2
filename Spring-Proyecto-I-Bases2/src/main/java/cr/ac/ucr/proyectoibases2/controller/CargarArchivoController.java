@@ -33,7 +33,7 @@ public class CargarArchivoController {
     // Metodo asincrono con ajax
     @RequestMapping(value = "/cargarArchivo", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<?> cargarArchivo(@RequestParam("cargararchivo") MultipartFile cargararchivo) {
+    public String cargarArchivo(@RequestParam("cargararchivo") MultipartFile cargararchivo) {
         System.out.println("Cargando...");
         try {
             // Path y nombre original del archivo
@@ -47,25 +47,20 @@ public class CargarArchivoController {
             System.out.println("Successfull");
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            // return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
+        // return new ResponseEntity<>(HttpStatus.OK);
+        try {
+            archivosdata.llenaHashNombreTabla(cargararchivo.getOriginalFilename());
+            archivosdata.llenaHashNombreColumna(cargararchivo.getOriginalFilename());
+            archivosdata.llenaHashDatosTabla(cargararchivo.getOriginalFilename());
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            System.out.println(cargararchivo.getOriginalFilename());
+        }
+        System.out.println(cargararchivo.getOriginalFilename());
+
+        return "/CargarArchivo";
     } // metodo uploadFile
 
-    @RequestMapping(value = "/cargarArchivo")
-    @ResponseBody
-    public void cargaArchivo(@RequestParam("cargararchivo") MultipartFile cargararchivo) {
-            try {
-                archivosdata.llenaHashNombreColumna(cargararchivo.getOriginalFilename());
-                archivosdata.llenaHashNombreColumna(cargararchivo.getOriginalFilename());
-                archivosdata.llenaHashDatosTabla(cargararchivo.getOriginalFilename());
-            } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-               System.out.println(cargararchivo.getOriginalFilename());
-            }
-
-    }
 }

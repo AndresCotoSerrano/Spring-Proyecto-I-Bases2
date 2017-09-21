@@ -15,7 +15,7 @@ public class ArchivosData {
     private ObjectInputStream ois;
     private ObjectOutputStream oos;
     private String nombre;
-    public final String RUTA = "src/main/resources/static/files/";
+    public final String RUTA = "src/main/resources/static/files";
     public HashMap<String, String> mapaNombres =new HashMap<String, String>();
     public HashMap<String, String []> mapaColumnas = new HashMap<String, String[]>();
     public HashMap<String, String [][]> mapaDatos = new HashMap<String, String[][]>();
@@ -33,9 +33,10 @@ public class ArchivosData {
 
     public void llenaHashNombreTabla(String archivo) throws FileNotFoundException, IOException {
         String nombre = "";
-        String sCadena = null;
+        String sCadena = "";
+        
         int contador = 1;
-        BufferedReader bf = new BufferedReader(new FileReader(RUTA + archivo));
+        BufferedReader bf = new BufferedReader(new FileReader("src/main/resources/static/files"+archivo));
         while ((sCadena = bf.readLine()) != null) {
             if (contador == 1) {
                 nombre = sCadena + "\n";
@@ -48,10 +49,10 @@ public class ArchivosData {
     }
 
     public void llenaHashNombreColumna(String archivo) throws FileNotFoundException, IOException {
-        String[] columnas = null;
-        String sCadena = null;
+        String[] columnas = new String [0];
+        String sCadena = "";
         int contador = 1;
-        BufferedReader bf = new BufferedReader(new FileReader(RUTA + archivo));
+        BufferedReader bf = new BufferedReader(new FileReader("src/main/resources/static/files"+archivo));
         while ((sCadena = bf.readLine()) != null) {
             if (contador == 3) {
                 columnas = sCadena.split(",");
@@ -75,16 +76,16 @@ public class ArchivosData {
          return result;
     }
 
-    public void llenaHashDatosTabla(String nombre) throws FileNotFoundException, IOException {
-        String[][] datos = null;
-        String linea = null;
-        String[] dato = null;
-        String sCadena = null;
+    public void llenaHashDatosTabla(String archivo) throws FileNotFoundException, IOException {
+        String[][] datos= new  String[0][0];
+        String linea = "";
+        String[] dato = new String[0];
+        String sCadena = "";
         int cont = 1;
         int contador = 1;
         int cuenta = 1;
 
-        BufferedReader bf = new BufferedReader(new FileReader(RUTA + nombre));
+        BufferedReader bf = new BufferedReader(new FileReader("src/main/resources/static/files"+archivo));
 
         while ((sCadena = bf.readLine()) != null) {
             if (contador >= 5 && !sCadena.equals("")) {
@@ -97,7 +98,7 @@ public class ArchivosData {
         int columnas = dato.length;
         boolean bandera = false;
         int numDatos = 0;
-        BufferedReader bfs = new BufferedReader(new FileReader(RUTA + nombre));
+        BufferedReader bfs = new BufferedReader(new FileReader("src/main/resources/static/files"+archivo));
         datos = new String[cont][columnas];
         while ((linea = bfs.readLine()) != null) {
             bandera = false;
