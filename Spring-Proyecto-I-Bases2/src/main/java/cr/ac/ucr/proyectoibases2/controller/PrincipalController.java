@@ -16,7 +16,7 @@ import cr.ac.ucr.proyectoibases2.data.ArchivosData;
 @Controller
 public class PrincipalController {
 
-
+CargarArchivoController cargararchivo;
     @RequestMapping(value = { "/Principal" }, method = RequestMethod.GET)
     public String Principal(Model model) {
         return "Principal";
@@ -43,6 +43,7 @@ public class PrincipalController {
         // aca funciona perfectamente enviar la parte del where
         return "Principal";
     }
+
 
     public void mostrar(String[] consulta) {
         for (String recorre : consulta) {

@@ -16,17 +16,15 @@ import cr.ac.ucr.proyectoibases2.data.ArchivosData;
 @Controller
 public class MostrarTablasController {
     // @Autowired
-    ArchivosData archivosdata;
-    private HashMap<String, String> HashNombres;
-    private HashMap<String, String[]> HashColumnas;
-    private HashMap<String, String[][]> HashDatos;
+    ArchivosData archivosdata = new ArchivosData();
+    HashMap<String, String> HashNombres = archivosdata.mapaNombres;
+    HashMap<String, String[]> HashColumnas = archivosdata.mapaColumnas;
+    HashMap<String, String[][]> HashDatos = archivosdata.mapaDatos;
 
     @RequestMapping(value = { "/MostrarTablas" }, method = RequestMethod.GET)
     public String mostrarTablas(Model model) {
-        HashNombres = archivosdata.mapaNombres;
-        HashColumnas = archivosdata.mapaColumnas;
-        HashDatos = archivosdata.mapaDatos;
-        leerHashMaps(HashNombres, HashColumnas, HashDatos);
+        mostrar(columnasTabla());
+        //leerHashMaps(HashNombres, HashColumnas, HashDatos);
         return "MostrarTablas";
     }
 
@@ -38,21 +36,38 @@ public class MostrarTablasController {
         Iterator<Entry<String, String>> it = nombre.entrySet().iterator();
         while (it.hasNext()) {
             Entry<String, String> entry = it.next();
-            nombres += entry.getValue() + "-";
+            nombres += entry.getValue();
         }
-        System.out.println("nombre de las tablas" + nombres);
+        System.out.println("nombre de las tablas :" + nombres);
         Iterator<Entry<String, String[]>> it1 = columna.entrySet().iterator();
         while (it1.hasNext()) {
             Entry<String, String[]> entry1 = it1.next();
-            columnas += entry1.getValue() + "-";
+            columnas += entry1.getValue();
         }
-        System.out.println("columnas de la tabla" + columnas);
+        System.out.println("columnas de la tabla :" + columnas);
         Iterator<Entry<String, String[][]>> it2 = dato.entrySet().iterator();
         while (it2.hasNext()) {
             Entry<String, String[][]> entry2 = it2.next();
-            datos += entry2.getValue() + "-";
+            datos += entry2.getValue();
         }
-        System.out.println("datos de la tabla" + datos);
+        System.out.println("datos de la tabla :" + datos);
+    }
+
+    public String[] columnasTabla() {
+        String[] aux = new String[0];
+        Iterator<Entry<String, String[]>> it = HashColumnas.entrySet().iterator();
+        while (it.hasNext()) {
+            Entry<String, String[]> entry = it.next();
+            String[] auxRes = entry.getValue();
+            aux = auxRes;
+        }
+        return aux;
+    }
+
+    public void mostrar(String[] consulta) {
+        for (String recorre : consulta) {
+            System.out.println(recorre + "holi");
+        }
     }
 
 }

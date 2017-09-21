@@ -15,8 +15,8 @@ public class ArchivosData {
     private ObjectInputStream ois;
     private ObjectOutputStream oos;
     private String nombre;
-    public final String RUTA = "src/main/resources/static/files";
-    public HashMap<String, String> mapaNombres =new HashMap<String, String>();
+    public final String RUTA = "src/main/resources/static/files/";
+    public HashMap<String, String> mapaNombres= new HashMap<String,String>();
     public HashMap<String, String []> mapaColumnas = new HashMap<String, String[]>();
     public HashMap<String, String [][]> mapaDatos = new HashMap<String, String[][]>();
 
@@ -32,14 +32,14 @@ public class ArchivosData {
     }
 
     public void llenaHashNombreTabla(String archivo) throws FileNotFoundException, IOException {
+        mapaNombres =new HashMap<String, String>();
         String nombre = "";
         String sCadena = "";
-        
         int contador = 1;
-        BufferedReader bf = new BufferedReader(new FileReader("src/main/resources/static/files"+archivo));
+        BufferedReader bf = new BufferedReader(new FileReader(RUTA+archivo));
         while ((sCadena = bf.readLine()) != null) {
             if (contador == 1) {
-                nombre = sCadena + "\n";
+                nombre = sCadena;
                 ++contador;
                 break;
             }
@@ -52,7 +52,7 @@ public class ArchivosData {
         String[] columnas = new String [0];
         String sCadena = "";
         int contador = 1;
-        BufferedReader bf = new BufferedReader(new FileReader("src/main/resources/static/files"+archivo));
+        BufferedReader bf = new BufferedReader(new FileReader(RUTA+archivo));
         while ((sCadena = bf.readLine()) != null) {
             if (contador == 3) {
                 columnas = sCadena.split(",");
@@ -85,7 +85,7 @@ public class ArchivosData {
         int contador = 1;
         int cuenta = 1;
 
-        BufferedReader bf = new BufferedReader(new FileReader("src/main/resources/static/files"+archivo));
+        BufferedReader bf = new BufferedReader(new FileReader(RUTA+archivo));
 
         while ((sCadena = bf.readLine()) != null) {
             if (contador >= 5 && !sCadena.equals("")) {
@@ -98,7 +98,7 @@ public class ArchivosData {
         int columnas = dato.length;
         boolean bandera = false;
         int numDatos = 0;
-        BufferedReader bfs = new BufferedReader(new FileReader("src/main/resources/static/files"+archivo));
+        BufferedReader bfs = new BufferedReader(new FileReader(RUTA+archivo));
         datos = new String[cont][columnas];
         while ((linea = bfs.readLine()) != null) {
             bandera = false;
