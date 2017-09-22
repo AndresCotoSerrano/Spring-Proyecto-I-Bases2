@@ -17,8 +17,7 @@ import cr.ac.ucr.proyectoibases2.data.ArchivosData;
 @Controller
 public class PrincipalController {
 
-    ArchivosData archivosdata = new ArchivosData();
-
+ArchivosData archivosdata = new ArchivosData();
     @RequestMapping(value = { "/Principal" }, method = RequestMethod.GET)
     public String Principal(Model model) {
         return "Principal";
@@ -31,23 +30,24 @@ public class PrincipalController {
         String auxSelect = select(auxQuery);
         String[] auxSplitSelect = auxSelect.split("select");
         String select = converToString(auxSplitSelect);
-       // System.out.println(select);
+        System.out.println(select);
         // aca funciona perfectamente enviar la parte del select
         String auxFrom = from(auxQuery);
         String[] auxSplitFrom = auxFrom.split("from");
         String from = converToString(auxSplitFrom);
-        //System.out.println(from);
+        System.out.println(from);
         // aca funciona perfectamente enviar la parte del from
         String auxWhere = where(auxQuery);
         String[] auxSplitWhere = auxWhere.split("where");
         String where = converToString(auxSplitWhere);
-        //System.out.println(where);
+        System.out.println(where);
         // aca funciona perfectamente enviar la parte del where
-        mostrar(archivosdata.cargarArrayNombre(from));
-        mostrar(archivosdata.cargarArrayColumna(from));
-        mostrar(archivosdata.cargarArrayDato(from));
+       //mostrar(archivosdata.cargarArrayNombre(from));
+      // mostrar(archivosdata.cargarArrayColumna(from));
+       mostrar(archivosdata.cargarArrayDato(from));
         return "Principal";
     }
+
 
     public void mostrar(ArrayList<java.lang.String> consulta) {
         for (String recorre : consulta) {
@@ -101,12 +101,12 @@ public class PrincipalController {
         return substring;
     }
 
-    public String[][] ejecutarSelect(String consulta, String[] tabla, String[][] datos) {
+    public String[][] ejecutarSelect(String consulta, ArrayList<String> tabla, String[][] datos) {
 
         String[] tamanoConsulta = consulta.split(",");
         int cantidadVariables = 0;
         String[][] respuesta = new String[datos.length][tamanoConsulta.length];
-        String[] aux = new String[tabla.length];
+        String[] aux = new String[tabla.size()];
 
         cantidadVariables = tamanoConsulta.length;
         if (cantidadVariables == 1) {
@@ -125,23 +125,25 @@ public class PrincipalController {
         return respuesta;
     }
 
-    public String[] selectUnico(String consulta, String[][] datos, String[] columnas) {
+    public String[] selectUnico(String consulta, String[][] datos, ArrayList<String> columnas) {
         int posicion = 0;
+        int aux = 0;
         String[] result = new String[datos.length];
 
-        for (int i = 0; i < columnas.length; i++) {
-            if (consulta.equalsIgnoreCase(columnas[i])) {
-                posicion = i;
-            }
+        for(String recorrido : columnas) {
+        	if(consulta.equalsIgnoreCase(recorrido) ) {
+        		aux = posicion;
+        	}
+        	posicion++;
         }
 
         for (int i = 0; i < datos.length; i++) {
-            result[i] = datos[i][posicion];
+            result[i] = datos[i][aux];
         }
         return result;
     }
 
-    public String[][] selectMultiple(String consulta, String[] tabla, String[][] datos) {
+    public String[][] selectMultiple(String consulta, ArrayList<String> tabla, String[][] datos) {
 
         String[] tamanoConsulta = consulta.split(",");
         String[][] respuesta = new String[datos.length][tamanoConsulta.length];
@@ -154,6 +156,54 @@ public class PrincipalController {
             }
         }
         return respuesta;
+    }
+    
+    public String[][] query(String select, String from, String where){
+        
+        String[][] res = new String[0][0];
+        String[][] datos = new String[0][0];
+        String[] cantidadTablas = from.split(";");
+        String[] cantidadVariables = select.split(";");
+        ArrayList<String> columnasTemp = new ArrayList<>();
+        ArrayList<String> datosTemp = new ArrayList<>();
+        String data = "";
+        
+        if(cantidadTablas.length <=1) {
+        	columnasTemp = archivosdata.cargarArrayColumna(from);
+          	data = generarDatos(datosTemp = archivosdata.cargarArrayDato(from));
+          	datos = crearMatrizDatos(columnasTemp, data);
+          	if(where == null) {
+          		res = ejecutarSelect(select, columnasTemp, datos);
+          	}else {
+          		// falta metodo Where
+          	}
+        }
+        
+        return res;
+    }
+    
+    public String[][] crearMatrizDatos(ArrayList<String>columnas, String datos){
+        
+        String[] aux = datos.split(",");
+        String[][] res = new String[aux.length/columnas.size()][columnas.size()];
+        int contador = 0;
+        for (int i = 0; i < aux.length/columnas.size(); i++) {
+            for (int j = 0; j < columnas.size(); j++) {
+                res[i][j] = aux[contador];
+                contador++;
+            }
+                            
+        }
+        return res;
+    }
+    
+    
+    public String generarDatos(ArrayList<String> datosTemp){
+        String resp = "";
+        for( String res : datosTemp){
+           resp += res;
+        }
+        return resp;
     }
 
 }
