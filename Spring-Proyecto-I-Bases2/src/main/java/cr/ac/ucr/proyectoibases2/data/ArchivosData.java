@@ -15,9 +15,9 @@ public class ArchivosData {
     private ObjectOutputStream oos;
     private String nombre;
     public final String RUTA = "src/main/resources/static/files/";
-    public HashMap<String, String> mapaNombres;
-    public HashMap<String, String[]> mapaColumnas;
-    public HashMap<String, String[][]> mapaDatos;
+    private HashMap<String, String> mapaNombres;
+    private HashMap<String, String[]> mapaColumnas;
+    private HashMap<String, String[][]> mapaDatos;
 
     public void crearArchivo(String nombre) {
         try {
