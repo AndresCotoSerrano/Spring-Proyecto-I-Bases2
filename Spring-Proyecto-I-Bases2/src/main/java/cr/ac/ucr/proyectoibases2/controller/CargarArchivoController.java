@@ -25,9 +25,6 @@ import cr.ac.ucr.proyectoibases2.data.ArchivosData;
 public class CargarArchivoController {
     private String url = "src/main/resources/static/files";
     ArchivosData archivosdata = new ArchivosData();
-    public HashMap<String, String> HashNombres = new HashMap<String,String>();
-    public HashMap<String, String[]> HashColumnas = new HashMap<String,String[]>();
-    public HashMap<String, String[][]> HashDatos= new HashMap<String,String[][]>();
     @RequestMapping(value = { "/CargarArchivo" }, method = RequestMethod.GET)
     public String Principal(Model model) {
         return "CargarArchivo";
@@ -49,9 +46,6 @@ public class CargarArchivoController {
             stream.write(cargararchivo.getBytes());
 
             System.out.println("Successfull");
-            HashNombres = archivosdata.llenaHashNombreTabla(filename);
-            HashColumnas = archivosdata.llenaHashNombreColumna(filename);
-            HashDatos = archivosdata.llenaHashDatosTabla(filename);
             stream.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());

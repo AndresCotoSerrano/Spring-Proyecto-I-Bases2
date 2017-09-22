@@ -1,5 +1,6 @@
 package cr.ac.ucr.proyectoibases2.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
@@ -16,7 +17,7 @@ import cr.ac.ucr.proyectoibases2.data.ArchivosData;
 @Controller
 public class PrincipalController {
 
-CargarArchivoController cargararchivo;
+ArchivosData archivosdata = new ArchivosData();
     @RequestMapping(value = { "/Principal" }, method = RequestMethod.GET)
     public String Principal(Model model) {
         return "Principal";
@@ -41,11 +42,14 @@ CargarArchivoController cargararchivo;
         String where = converToString(auxSplitWhere);
         System.out.println(where);
         // aca funciona perfectamente enviar la parte del where
+       //mostrar(archivosdata.cargarArrayNombre(from));
+      // mostrar(archivosdata.cargarArrayColumna(from));
+       mostrar(archivosdata.cargarArrayDato(from));
         return "Principal";
     }
 
 
-    public void mostrar(String[] consulta) {
+    public void mostrar(ArrayList<java.lang.String> consulta) {
         for (String recorre : consulta) {
             System.out.println(recorre);
         }

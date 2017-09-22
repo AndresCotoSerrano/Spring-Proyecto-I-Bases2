@@ -1,13 +1,16 @@
 package cr.ac.ucr.proyectoibases2.data;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class ArchivosData {
 
@@ -15,114 +18,152 @@ public class ArchivosData {
     private ObjectOutputStream oos;
     private String nombre;
     public final String RUTA = "src/main/resources/static/files/";
-    private HashMap<String, String> mapaNombres;
-    private HashMap<String, String[]> mapaColumnas;
-    private HashMap<String, String[][]> mapaDatos;
+    Map<String, String> MAPA_NOMBRES = new HashMap<>();
 
-    public void crearArchivo(String nombre) {
+    // public final HashMap<String, String[]> MAPA_COLUMNAS = new HashMap<String,
+    // String[]>();
+    // public final HashMap<String, String[][]> MAPA_DATOS= new HashMap<String,
+    // String[][]>();
+    public ArrayList<java.lang.String> LeerArchivo(String archivo) {
+
+        BufferedReader br = null;
+        String line = "";
+        ArrayList<String> datos = new ArrayList<>();
+        String file = "src/main/resources/static/files/" + archivo;
+
         try {
-            oos = new ObjectOutputStream(new FileOutputStream(RUTA + nombre));
-            this.nombre = nombre;
-            oos.close();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
-    public HashMap<String,String> llenaHashNombreTabla(String archivo) throws FileNotFoundException, IOException {
-        mapaNombres = new HashMap<String, String>();
-        String nombre = "";
-        String sCadena = "";
-        int contador = 1;
-        BufferedReader bf = new BufferedReader(new FileReader(RUTA+archivo));
-        while ((sCadena = bf.readLine()) != null) {
-            if (contador == 1) {
-                nombre = sCadena;
-                ++contador;
-                break;
+            File f = new File(file);
+            if (f.exists()) {
+                br = new BufferedReader(new FileReader(file));
+                while ((line = br.readLine()) != null) {
+                    datos.add(line);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
-        bf.close();
-        mapaNombres.put(archivo, nombre);
-       return mapaNombres;
-
+        return datos;
     }
 
-    public HashMap<String,String[]> llenaHashNombreColumna(String archivo) throws FileNotFoundException, IOException {
-        mapaColumnas = new HashMap<String, String[]>();
-        String[] columnas = new String[0];
-        String sCadena = "";
-        int contador = 1;
-        BufferedReader bf = new BufferedReader(new FileReader(RUTA + archivo));
-        while ((sCadena = bf.readLine()) != null) {
-            if (contador == 3) {
-                columnas = sCadena.split(",");
-            }
-            ++contador;
-        }
-        bf.close();
-        mapaColumnas.put(archivo, columnas);
-        return mapaColumnas;
-    }
+    public ArrayList<java.lang.String> cargarArrayNombre(String archivo) {
 
-    public String leerArchivo(String nombre) throws IOException {
-        String result = "";
-
-        String sCadena = null;
-        BufferedReader bf = new BufferedReader(new FileReader(RUTA + nombre));
-        while ((sCadena = bf.readLine()) != null) {
-            result += sCadena + "\n";
-        }
-        result.replaceAll(" ", "");
-        bf.close();
-        return result;
-    }
-
-    public HashMap <String,String[][]> llenaHashDatosTabla(String archivo) throws FileNotFoundException, IOException {
-        mapaDatos = new HashMap<String, String[][]>();
-        String[][] datos;
-        String linea = "";
-        String[] dato = new String[0];
-        String sCadena = "";
-        int cont = 1;
-        int contador = 1;
-        int cuenta = 1;
-
-        BufferedReader bf = new BufferedReader(new FileReader(RUTA + archivo));
-
-        while ((sCadena = bf.readLine()) != null) {
-            if (contador >= 5 && !sCadena.equals("")) {
-                ++cont;
-                dato = sCadena.split(",");
-            }
-            ++contador;
-        }
-        bf.close();
-        int columnas = dato.length;
-        boolean bandera = false;
-        int numDatos = 0;
-        BufferedReader bfs = new BufferedReader(new FileReader(RUTA+archivo));
-        datos = new String[(cont/2)+1][columnas];
-        while ((linea = bfs.readLine()) != null) {
-            bandera = false;
-            dato = linea.split(",");
-            if (cuenta >= 5 && dato.length == columnas) {
-                for (int i = 0; i < cont; i++) {
-                    if (i == numDatos && bandera == false) {
-                        for (int j = 0; j < columnas; j++) {
-                            datos[i][j] = dato[j];
-                        }
-                        bandera = true;
+        BufferedReader br = null;
+        String line = "";
+        ArrayList<String> datos = new ArrayList<>();
+        String file = "src/main/resources/static/files/" + archivo + ".csv";
+        int contador = 0;
+        try {
+            File f = new File(file);
+            if (f.exists()) {
+                br = new BufferedReader(new FileReader(file));
+                while ((line = br.readLine()) != null) {
+                    if (contador == 0) {
+                        datos.add(line);
+                        contador++;
+                    } else {
+                        break;
                     }
                 }
-                numDatos++;
             }
-            cuenta++;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-        bfs.close();
-        mapaDatos.put(nombre, datos);
-        return mapaDatos;
+        return datos;
+    }
 
+    public ArrayList<java.lang.String> cargarArrayColumna(String archivo) {
+
+        BufferedReader br = null;
+        String line = "";
+        ArrayList<String> datos = new ArrayList<>();
+        String file = "src/main/resources/static/files/" + archivo + ".csv";
+        int contador = 0;
+        try {
+            File f = new File(file);
+            if (f.exists()) {
+                br = new BufferedReader(new FileReader(file));
+                while ((line = br.readLine()) != null) {
+                    if (!line.equalsIgnoreCase(archivo)) {
+                        contador++;
+                    }
+                    if (contador == 1) {
+                        datos.add(line);
+                        contador++;
+                    }
+                    if (contador == 2) {
+                        break;
+                    }
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return datos;
+    }
+
+    public ArrayList<java.lang.String> cargarArrayDato(String archivo) {
+
+        BufferedReader br = null;
+        String line = "";
+        ArrayList<String> datos = new ArrayList<>();
+        String file = "src/main/resources/static/files/" + archivo + ".csv";
+        int contador = 0;
+        try {
+            File f = new File(file);
+            if (f.exists()) {
+                br = new BufferedReader(new FileReader(file));
+                while ((line = br.readLine()) != null) {
+
+                    if (contador == 2||contador>2) {
+                        datos.add(line);
+                    }
+                    contador++;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return datos;
     }
 
 }
