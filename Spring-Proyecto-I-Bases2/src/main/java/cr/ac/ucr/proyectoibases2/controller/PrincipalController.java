@@ -47,20 +47,17 @@ public class PrincipalController {
         // mostrar(archivosdata.cargarArrayColumna(from));
         // mostrar(archivosdata.cargarArrayDato(from));
         // model.addAttribute("query",query(select,from,where));
-        mostrarMatriz(query(select, from, where));
+        model.addAttribute("listQuery", matrizToArray(query(select, from, where)));
         return "Principal";
     }
 
     public void mostrarMatriz(String[][] m) {
-        String result = "";
         for (int i = 0; i < m.length; i++) {
-            for (int j = 0; i < m[i].length; j++) {
-                System.out.println(m[i][j]);
+            for (int j = 0; j < m[i].length; j++) {
 
-                result += m[i][j] + "\n";
+                System.out.println("" + m[i][j]);
             }
         }
-        System.out.println(result);
     }
 
     public void mostrar(ArrayList<java.lang.String> consulta) {
@@ -141,18 +138,23 @@ public class PrincipalController {
 
     public String[] selectUnico(String consulta, String[][] datos, ArrayList<String> columnas) {
         int posicion = 0;
-        int aux = 0;
         String[] result = new String[datos.length];
 
-        for (String recorrido : columnas) {
-            if (consulta.equalsIgnoreCase(recorrido)) {
-                aux = posicion;
+        for (int i = 0; i < columnas.size(); i++) {
+            if (consulta.equalsIgnoreCase(columnas.get(i))) {
+                posicion = i;
             }
-            posicion++;
         }
 
+        // for (String recorrido : columnas) {
+        // if (consulta.equalsIgnoreCase(recorrido)) {
+        // aux = posicion;
+        // }
+        // posicion++;
+        // }
+
         for (int i = 0; i < datos.length; i++) {
-            result[i] = datos[i][aux];
+            result[i] = datos[i][posicion];
         }
         return result;
     }
@@ -179,18 +181,17 @@ public class PrincipalController {
         String[] cantidadTablas = from.split(";");
         String[] cantidadVariables = select.split(";");
         ArrayList<String> columnasTemp = new ArrayList<>();
-        ArrayList<String> datosTemp = new ArrayList<>();
+        ArrayList<String> datosTemp;
         String data = "";
 
         if (cantidadTablas.length <= 1) {
             columnasTemp = archivosdata.cargarArrayColumna(from);
-            data = generarDatos(datosTemp = archivosdata.cargarArrayDato(from));
+            datosTemp = archivosdata.cargarArrayDato(from);
+            data = generarDatos(datosTemp);
             datos = crearMatrizDatos(columnasTemp, data);
-            if (where.equalsIgnoreCase("")) {
-                res = ejecutarSelect(select, columnasTemp, datos);
-            } else {
-                // falta metodo Where
-            }
+
+            res = ejecutarSelect(select, columnasTemp, datos);
+
         }
 
         return res;
@@ -219,4 +220,13 @@ public class PrincipalController {
         return resp;
     }
 
+    public ArrayList<String> matrizToArray(String[][] datos) {
+        ArrayList<String> res = new ArrayList<>();
+        for (int i = 0; i < datos.length; i++) {
+            for (int j = 0; j < datos[0].length; j++) {
+                res.add(datos[i][j]);
+            }
+        }
+        return res;
+    }
 }

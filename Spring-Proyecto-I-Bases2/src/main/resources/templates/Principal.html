@@ -64,25 +64,15 @@
 					<div class="panel-heading">Resultado</div>
 						<div class="panel-body">
 							<div class="table-responsive">
-								<table class="table">
+								<table class="table"   th:each="entry,status:${listQuery}">
 									<thead>
 										<tr>
-											<th>ID</th>
-											<th>Firstname</th>
-											<th>Lastname</th>
-											<th>Age</th>
-											<th>City</th>
-											<th>Country</th>
+											<td></td>
 										</tr>
 									</thead>
-									<tbody id="resultTable">
+									<tbody>
 										<tr>
-											<td>1</td>
-											<td>Anna</td>
-											<td>Pitt</td>
-											<td>35</td>
-											<td>New York</td>
-											<td>USA</td>
+											<td th:text="${entry}"></td>
 										</tr>
 									</tbody>
 								</table>
