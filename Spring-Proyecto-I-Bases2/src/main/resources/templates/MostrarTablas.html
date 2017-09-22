@@ -35,7 +35,8 @@
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="Principal.html"><span class="glyphicon glyphicon-arrow-left"></span> Volver al Gestor</a></li>
+						<li><a href="Principal.html"><span
+								class="glyphicon glyphicon-arrow-left"></span> Volver al Gestor</a></li>
 					</ul>
 				</div>
 			</div>
@@ -43,7 +44,40 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="panel panel-default">
+					<div th:if="${nombreTabla}">
+						<div th:if="${nombreTabla.isEmpty()}">
+							<br>
+							<div class="alert alert-danger">
+								<strong th:text="#{errorList}"></strong>
+								<h4 th:text="#{messageErrorList}"></h4>
+							</div>
+						</div>
+					</div>
 
+					<div th:if="${!nombreTabla.isEmpty()}">
+						<div class="panel-heading">Consultas</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-sm-4" th:each="entry,status : ${nombreTabla}">
+									<div class="panel panel-default">
+										<div class="panel-heading" th:text="${entry}"></div>
+										<div class="panel-body"  th:each="entry1,status1 : ${columnaTabla}">
+											<ul>
+												<li th:text="${entry1}"></li>
+												
+											</ul>
+											<ul  th:each="entry2,status2:${datoTabla}">
+											<li th:text="${entry2}"></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<!-- panel body-->
+							</div>
+							<!-- panel-body-->
+						</div>
+						<!-- verificacion que la lista tenga elementos -->
+					</div>
 				</div>
 			</div>
 		</div>

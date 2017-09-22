@@ -24,9 +24,9 @@ public class MostrarTablasController {
     @RequestMapping(value = { "/MostrarTablas" }, method = RequestMethod.GET)
     public String mostrarTablas(Model model) {
         String archivo = CargarArchivoController.NOMBRE_ARCHIVO;
-        recorreArrayNombre(archivosdata.cargarArrayNombreTabla(archivo));
-        recorreArrayColumna(archivosdata.cargarArrayColumnaTabla(archivo));
-        recorreArrayDato(archivosdata.cargarArrayDatoTabla(archivo));
+        model.addAttribute("nombreTabla",archivosdata.cargarArrayNombreTabla(archivo));
+       model.addAttribute("columnaTabla",archivosdata.cargarArrayColumnaTabla(archivo));
+       model.addAttribute("datoTabla",archivosdata.cargarArrayDatoTabla(archivo));
 
         return "MostrarTablas";
     }
