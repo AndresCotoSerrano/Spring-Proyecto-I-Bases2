@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,10 @@ import cr.ac.ucr.proyectoibases2.data.ArchivosData;
 public class CargarArchivoController {
     private String url = "src/main/resources/static/files";
     ArchivosData archivosdata = new ArchivosData();
+     static String NOMBRE_ARCHIVO="";
+    
+ 
+
     @RequestMapping(value = { "/CargarArchivo" }, method = RequestMethod.GET)
     public String Principal(Model model) {
         return "CargarArchivo";
@@ -52,6 +57,30 @@ public class CargarArchivoController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-     return new ResponseEntity<>(HttpStatus.OK);
+        CargarArchivoController.NOMBRE_ARCHIVO = cargararchivo.getOriginalFilename();
+        return new ResponseEntity<>(HttpStatus.OK);
     } // metodo uploadFile
+
+    public void recorreArrayNombre(ArrayList<java.lang.String> nombre) {
+        if (nombre.isEmpty()) {
+            System.out.println("vacio");
+        } else {
+            for (String n : nombre) {
+                System.out.println(n);
+            }
+        }
+    }
+
+    public void recorreArrayColumna(ArrayList<java.lang.String> columna) {
+        for (String c : columna) {
+            System.out.println(c);
+        }
+    }
+
+    public void recorreArrayDato(ArrayList<java.lang.String> dato) {
+        for (String d : dato) {
+            System.out.println(d);
+        }
+    }
+
 }

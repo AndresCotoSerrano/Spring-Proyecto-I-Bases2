@@ -1,5 +1,6 @@
 package cr.ac.ucr.proyectoibases2.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -18,46 +19,37 @@ import cr.ac.ucr.proyectoibases2.data.ArchivosData;
 public class MostrarTablasController {
     // @Autowired
     ArchivosData archivosdata = new ArchivosData();
-   // HashMap<String, String> HashNombres = archivosdata.MAPA_NOMBRES;
-   // HashMap<String, String[]> HashColumnas = archivosdata.MAPA_COLUMNAS;
-   // HashMap<String, String[][]> HashDatos = archivosdata.MAPA_DATOS;
+    CargarArchivoController cac = new CargarArchivoController();
 
     @RequestMapping(value = { "/MostrarTablas" }, method = RequestMethod.GET)
     public String mostrarTablas(Model model) {
-        //leerHashMaps(HashNombres, HashColumnas, HashDatos);
+        String archivo = CargarArchivoController.NOMBRE_ARCHIVO;
+        recorreArrayNombre(archivosdata.cargarArrayNombreTabla(archivo));
+        recorreArrayColumna(archivosdata.cargarArrayColumnaTabla(archivo));
+        recorreArrayDato(archivosdata.cargarArrayDatoTabla(archivo));
+
         return "MostrarTablas";
     }
 
-    public void leerHashMaps(HashMap<String, String> nombre, HashMap<String, String[]> columna,
-            HashMap<String, String[][]> dato) {
-        if (!nombre.isEmpty()) {
-            for (String n : nombre.values()) {
-                System.out.println("nombres" + n);
-            }
+    public void recorreArrayNombre(ArrayList<java.lang.String> nombre) {
+        if (nombre.isEmpty()) {
+            System.out.println("vacio");
         } else {
-            System.out.println("esta vacio");
-        }
-        if (!columna.isEmpty()) {
-            for (String[] n : columna.values()) {
-                System.out.println("columnas" + n);
+            for (String n : nombre) {
+                System.out.println(n);
             }
-        } else {
-            System.out.println("esta vacio");
-        }
-        if (!dato.isEmpty()) {
-            for (String[][] n : dato.values()) {
-                System.out.println("datos" + n);
-            }
-        } else {
-            System.out.println("esta vacio");
-        }
-
-    }
-
-    public void mostrar(String[] consulta) {
-        for (String recorre : consulta) {
-            System.out.println(recorre + "holi");
         }
     }
 
+    public void recorreArrayColumna(ArrayList<java.lang.String> columna) {
+        for (String c : columna) {
+            System.out.println(c);
+        }
+    }
+
+    public void recorreArrayDato(ArrayList<java.lang.String> dato) {
+        for (String d : dato) {
+            System.out.println(d);
+        }
+    }
 }

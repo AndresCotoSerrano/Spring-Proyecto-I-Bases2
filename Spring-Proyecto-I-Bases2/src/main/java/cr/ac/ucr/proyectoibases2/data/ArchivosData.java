@@ -18,12 +18,6 @@ public class ArchivosData {
     private ObjectOutputStream oos;
     private String nombre;
     public final String RUTA = "src/main/resources/static/files/";
-    Map<String, String> MAPA_NOMBRES = new HashMap<>();
-
-    // public final HashMap<String, String[]> MAPA_COLUMNAS = new HashMap<String,
-    // String[]>();
-    // public final HashMap<String, String[][]> MAPA_DATOS= new HashMap<String,
-    // String[][]>();
     public ArrayList<java.lang.String> LeerArchivo(String archivo) {
 
         BufferedReader br = null;
@@ -91,6 +85,42 @@ public class ArchivosData {
         return datos;
     }
 
+    public ArrayList<java.lang.String> cargarArrayNombreTabla(String archivo) {
+
+        BufferedReader br = null;
+        String line = "";
+        ArrayList<String> datos = new ArrayList<>();
+        String file = "src/main/resources/static/files/" + archivo;
+        int contador = 0;
+        try {
+            File f = new File(file);
+            if (f.exists()) {
+                br = new BufferedReader(new FileReader(file));
+                while ((line = br.readLine()) != null) {
+                    if (contador == 0) {
+                        datos.add(line);
+                        contador++;
+                    } else {
+                        break;
+                    }
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return datos;
+    }
+
     public ArrayList<java.lang.String> cargarArrayColumna(String archivo) {
 
         BufferedReader br = null;
@@ -103,9 +133,6 @@ public class ArchivosData {
             if (f.exists()) {
                 br = new BufferedReader(new FileReader(file));
                 while ((line = br.readLine()) != null) {
-                    if (!line.equalsIgnoreCase(archivo)) {
-                        contador++;
-                    }
                     if (contador == 1) {
                         datos.add(line);
                         contador++;
@@ -113,6 +140,45 @@ public class ArchivosData {
                     if (contador == 2) {
                         break;
                     }
+                    contador++;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return datos;
+    }
+
+    public ArrayList<java.lang.String> cargarArrayColumnaTabla(String archivo) {
+
+        BufferedReader br = null;
+        String line = "";
+        ArrayList<String> datos = new ArrayList<>();
+        String file = "src/main/resources/static/files/" + archivo;
+        int contador = 0;
+        try {
+            File f = new File(file);
+            if (f.exists()) {
+                br = new BufferedReader(new FileReader(file));
+                while ((line = br.readLine()) != null) {
+                    if (contador == 1) {
+                        datos.add(line);
+                        contador++;
+                    }
+                    if (contador == 2) {
+                        break;
+                    }
+                    contador++;
                 }
             }
         } catch (FileNotFoundException e) {
@@ -144,7 +210,42 @@ public class ArchivosData {
                 br = new BufferedReader(new FileReader(file));
                 while ((line = br.readLine()) != null) {
 
-                    if (contador == 2||contador>2) {
+                    if (contador == 2 || contador > 2) {
+                        datos.add(line);
+                    }
+                    contador++;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return datos;
+    }
+
+    public ArrayList<java.lang.String> cargarArrayDatoTabla(String archivo) {
+
+        BufferedReader br = null;
+        String line = "";
+        ArrayList<String> datos = new ArrayList<>();
+        String file = "src/main/resources/static/files/" + archivo;
+        int contador = 0;
+        try {
+            File f = new File(file);
+            if (f.exists()) {
+                br = new BufferedReader(new FileReader(file));
+                while ((line = br.readLine()) != null) {
+
+                    if (contador == 2 || contador > 2) {
                         datos.add(line);
                     }
                     contador++;
