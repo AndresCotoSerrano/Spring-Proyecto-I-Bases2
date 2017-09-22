@@ -17,7 +17,8 @@ import cr.ac.ucr.proyectoibases2.data.ArchivosData;
 @Controller
 public class PrincipalController {
 
-ArchivosData archivosdata = new ArchivosData();
+    ArchivosData archivosdata = new ArchivosData();
+
     @RequestMapping(value = { "/Principal" }, method = RequestMethod.GET)
     public String Principal(Model model) {
         return "Principal";
@@ -30,24 +31,23 @@ ArchivosData archivosdata = new ArchivosData();
         String auxSelect = select(auxQuery);
         String[] auxSplitSelect = auxSelect.split("select");
         String select = converToString(auxSplitSelect);
-        System.out.println(select);
+       // System.out.println(select);
         // aca funciona perfectamente enviar la parte del select
         String auxFrom = from(auxQuery);
         String[] auxSplitFrom = auxFrom.split("from");
         String from = converToString(auxSplitFrom);
-        System.out.println(from);
+        //System.out.println(from);
         // aca funciona perfectamente enviar la parte del from
         String auxWhere = where(auxQuery);
         String[] auxSplitWhere = auxWhere.split("where");
         String where = converToString(auxSplitWhere);
-        System.out.println(where);
+        //System.out.println(where);
         // aca funciona perfectamente enviar la parte del where
-       //mostrar(archivosdata.cargarArrayNombre(from));
-      // mostrar(archivosdata.cargarArrayColumna(from));
-       mostrar(archivosdata.cargarArrayDato(from));
+        mostrar(archivosdata.cargarArrayNombre(from));
+        mostrar(archivosdata.cargarArrayColumna(from));
+        mostrar(archivosdata.cargarArrayDato(from));
         return "Principal";
     }
-
 
     public void mostrar(ArrayList<java.lang.String> consulta) {
         for (String recorre : consulta) {
