@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,9 @@ import cr.ac.ucr.proyectoibases2.data.ArchivosData;
 public class CargarArchivoController {
     private String url = "src/main/resources/static/files";
     ArchivosData archivosdata = new ArchivosData();
-
+    public HashMap<String, String> HashNombres = new HashMap<String,String>();
+    public HashMap<String, String[]> HashColumnas = new HashMap<String,String[]>();
+    public HashMap<String, String[][]> HashDatos= new HashMap<String,String[][]>();
     @RequestMapping(value = { "/CargarArchivo" }, method = RequestMethod.GET)
     public String Principal(Model model) {
         return "CargarArchivo";
@@ -36,7 +39,6 @@ public class CargarArchivoController {
     public ResponseEntity<?> cargarArchivo(@RequestParam("cargararchivo") MultipartFile cargararchivo)
             throws FileNotFoundException, IOException {
         System.out.println("Cargando...");
-        String nameArchivo = cargararchivo.getOriginalFilename();
         try {
             // Path y nombre original del archivo
             String filename = cargararchivo.getOriginalFilename();
@@ -45,16 +47,16 @@ public class CargarArchivoController {
             // guarda el archivo en la carpeta static
             BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(filepath)));
             stream.write(cargararchivo.getBytes());
-            stream.close();
+
             System.out.println("Successfull");
+            HashNombres = archivosdata.llenaHashNombreTabla(filename);
+            HashColumnas = archivosdata.llenaHashNombreColumna(filename);
+            HashDatos = archivosdata.llenaHashDatosTabla(filename);
+            stream.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        archivosdata.llenaHashNombreTabla(nameArchivo);
-        archivosdata.llenaHashNombreColumna(nameArchivo);
-        archivosdata.llenaHashDatosTabla(nameArchivo);
-        System.out.println(nameArchivo);
 
      return new ResponseEntity<>(HttpStatus.OK);
     } // metodo uploadFile

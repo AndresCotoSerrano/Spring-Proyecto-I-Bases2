@@ -9,17 +9,15 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
-
 public class ArchivosData {
 
     private ObjectInputStream ois;
     private ObjectOutputStream oos;
     private String nombre;
     public final String RUTA = "src/main/resources/static/files/";
-    public HashMap<String, String> mapaNombres= new HashMap<String,String>();
-    public HashMap<String, String []> mapaColumnas = new HashMap<String, String[]>();
-    public HashMap<String, String [][]> mapaDatos = new HashMap<String, String[][]>();
-
+    public HashMap<String, String> mapaNombres;
+    public HashMap<String, String[]> mapaColumnas;
+    public HashMap<String, String[][]> mapaDatos;
 
     public void crearArchivo(String nombre) {
         try {
@@ -31,8 +29,8 @@ public class ArchivosData {
         }
     }
 
-    public void llenaHashNombreTabla(String archivo) throws FileNotFoundException, IOException {
-        mapaNombres =new HashMap<String, String>();
+    public HashMap<String,String> llenaHashNombreTabla(String archivo) throws FileNotFoundException, IOException {
+        mapaNombres = new HashMap<String, String>();
         String nombre = "";
         String sCadena = "";
         int contador = 1;
@@ -46,13 +44,16 @@ public class ArchivosData {
         }
         bf.close();
         mapaNombres.put(archivo, nombre);
+       return mapaNombres;
+
     }
 
-    public void llenaHashNombreColumna(String archivo) throws FileNotFoundException, IOException {
-        String[] columnas = new String [0];
+    public HashMap<String,String[]> llenaHashNombreColumna(String archivo) throws FileNotFoundException, IOException {
+        mapaColumnas = new HashMap<String, String[]>();
+        String[] columnas = new String[0];
         String sCadena = "";
         int contador = 1;
-        BufferedReader bf = new BufferedReader(new FileReader(RUTA+archivo));
+        BufferedReader bf = new BufferedReader(new FileReader(RUTA + archivo));
         while ((sCadena = bf.readLine()) != null) {
             if (contador == 3) {
                 columnas = sCadena.split(",");
@@ -61,6 +62,7 @@ public class ArchivosData {
         }
         bf.close();
         mapaColumnas.put(archivo, columnas);
+        return mapaColumnas;
     }
 
     public String leerArchivo(String nombre) throws IOException {
@@ -72,12 +74,13 @@ public class ArchivosData {
             result += sCadena + "\n";
         }
         result.replaceAll(" ", "");
-         bf.close();
-         return result;
+        bf.close();
+        return result;
     }
 
-    public void llenaHashDatosTabla(String archivo) throws FileNotFoundException, IOException {
-        String[][] datos= new  String[0][0];
+    public HashMap <String,String[][]> llenaHashDatosTabla(String archivo) throws FileNotFoundException, IOException {
+        mapaDatos = new HashMap<String, String[][]>();
+        String[][] datos;
         String linea = "";
         String[] dato = new String[0];
         String sCadena = "";
@@ -85,7 +88,7 @@ public class ArchivosData {
         int contador = 1;
         int cuenta = 1;
 
-        BufferedReader bf = new BufferedReader(new FileReader(RUTA+archivo));
+        BufferedReader bf = new BufferedReader(new FileReader(RUTA + archivo));
 
         while ((sCadena = bf.readLine()) != null) {
             if (contador >= 5 && !sCadena.equals("")) {
@@ -98,7 +101,7 @@ public class ArchivosData {
         int columnas = dato.length;
         boolean bandera = false;
         int numDatos = 0;
-        BufferedReader bfs = new BufferedReader(new FileReader(RUTA+archivo));
+        BufferedReader bfs = new BufferedReader(new FileReader(RUTA + archivo));
         datos = new String[cont][columnas];
         while ((linea = bfs.readLine()) != null) {
             bandera = false;
@@ -118,6 +121,8 @@ public class ArchivosData {
         }
         bfs.close();
         mapaDatos.put(nombre, datos);
+        return mapaDatos;
+
     }
 
 }
