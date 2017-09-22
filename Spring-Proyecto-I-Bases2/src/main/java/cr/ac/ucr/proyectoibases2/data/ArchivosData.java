@@ -101,8 +101,8 @@ public class ArchivosData {
         int columnas = dato.length;
         boolean bandera = false;
         int numDatos = 0;
-        BufferedReader bfs = new BufferedReader(new FileReader(RUTA + archivo));
-        datos = new String[cont][columnas];
+        BufferedReader bfs = new BufferedReader(new FileReader(RUTA+archivo));
+        datos = new String[(cont/2)+1][columnas];
         while ((linea = bfs.readLine()) != null) {
             bandera = false;
             dato = linea.split(",");
