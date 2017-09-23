@@ -112,20 +112,20 @@ public class PrincipalController {
         return substring;
     }
 
-    public String[][] ejecutarSelect(String consulta, ArrayList<String> tabla, String[][] datos) {
-
+    public String[][] ejecutarSelect(String consulta, String[] tabla, String[][] datos){
+    	 
         String[] tamanoConsulta = consulta.split(",");
         int cantidadVariables = 0;
         String[][] respuesta = new String[datos.length][tamanoConsulta.length];
-        String[] aux = new String[tabla.size()];
-
+        String[] aux = new String[tabla.length];
+        
         cantidadVariables = tamanoConsulta.length;
-        if (cantidadVariables == 1) {
+        if(cantidadVariables == 1){
             aux = selectUnico(consulta, datos, tabla);
             for (int i = 0; i < aux.length; i++) {
                 respuesta[i][0] = aux[i];
             }
-        } else {
+        }else{
             String[][] auxMatriz = selectMultiple(consulta, tabla, datos);
             for (int i = 0; i < aux.length; i++) {
                 for (int j = 0; j < auxMatriz[i].length; j++) {
@@ -135,41 +135,35 @@ public class PrincipalController {
         }
         return respuesta;
     }
-
-    public String[] selectUnico(String consulta, String[][] datos, ArrayList<String> columnas) {
+    
+    public String[] selectUnico(String consulta, String[][] datos, String[] columnas){
         int posicion = 0;
         String[] result = new String[datos.length];
-
-        for (int i = 0; i < columnas.size(); i++) {
-            if (consulta.equalsIgnoreCase(columnas.get(i))) {
-                posicion = i;
-            }
+        
+        
+        for (int i = 0; i < columnas.length; i++) {
+           if(consulta.equalsIgnoreCase(columnas[i])){
+               posicion = i;
+           }
         }
-
-        // for (String recorrido : columnas) {
-        // if (consulta.equalsIgnoreCase(recorrido)) {
-        // aux = posicion;
-        // }
-        // posicion++;
-        // }
-
+        
         for (int i = 0; i < datos.length; i++) {
             result[i] = datos[i][posicion];
         }
         return result;
     }
 
-    public String[][] selectMultiple(String consulta, ArrayList<String> tabla, String[][] datos) {
-
+    public String[][] selectMultiple(String consulta, String[] tabla, String[][] datos){
+        
         String[] tamanoConsulta = consulta.split(",");
         String[][] respuesta = new String[datos.length][tamanoConsulta.length];
-
+        
         for (int i = 0; i < tamanoConsulta.length; i++) {
             String[] aux = selectUnico(tamanoConsulta[i], datos, tabla);
-
+            
             for (int j = 0; j < datos.length; j++) {
                 respuesta[j][i] = aux[j];
-            }
+            }   
         }
         return respuesta;
     }
@@ -180,30 +174,31 @@ public class PrincipalController {
         String[][] datos = new String[0][0];
         String[] cantidadTablas = from.split(";");
         String[] cantidadVariables = select.split(";");
-        ArrayList<String> columnasTemp = new ArrayList<>();
+        ArrayList<String> columnas = new ArrayList<>();
         ArrayList<String> datosTemp;
         String data = "";
+        String[] columnasFrom;
 
         if (cantidadTablas.length <= 1) {
-            columnasTemp = archivosdata.cargarArrayColumna(from);
-            datosTemp = archivosdata.cargarArrayDato(from);
-            data = generarDatos(datosTemp);
-            datos = crearMatrizDatos(columnasTemp, data);
-
-            res = ejecutarSelect(select, columnasTemp, datos);
-
+        	columnas = archivosdata.cargarArrayColumna(from);
+        	columnasFrom = ArrayListToArray(columnas);
+        	datosTemp = archivosdata.cargarArrayDato(from);
+        	data = generarDatos(datosTemp); 
+        	datos = crearMatrizDatos(columnasFrom, data);
+        	
+        	res = ejecutarSelect(select, columnasFrom, datos);
         }
 
         return res;
     }
 
-    public String[][] crearMatrizDatos(ArrayList<String> columnas, String datos) {
+    public String[][] crearMatrizDatos(String[] columnas, String datos) {
 
         String[] aux = datos.split(",");
-        String[][] res = new String[aux.length / columnas.size()][columnas.size()];
+        String[][] res = new String[aux.length / columnas.length][columnas.length];
         int contador = 0;
-        for (int i = 0; i < aux.length / columnas.size(); i++) {
-            for (int j = 0; j < columnas.size(); j++) {
+        for (int i = 0; i < aux.length / columnas.length; i++) {
+            for (int j = 0; j < columnas.length; j++) {
                 res[i][j] = aux[contador];
                 contador++;
             }
@@ -229,4 +224,15 @@ public class PrincipalController {
         }
         return res;
     }
+    
+    public String[] ArrayListToArray(ArrayList<String> prueba){
+        
+        String aux = "";
+        for (String res : prueba) {
+            aux += res;
+        }
+        String[] respuesta = aux.split(",");
+        return respuesta;
+    }
+    
 }
