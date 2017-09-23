@@ -18,6 +18,12 @@ public class ArchivosData {
     private ObjectOutputStream oos;
     private String nombre;
     public final String RUTA = "src/main/resources/static/files/";
+
+    public void eliminarArchivo(File direccion) {
+        System.out.println(direccion);
+        direccion.delete();
+    }
+
     public ArrayList<java.lang.String> LeerArchivo(String archivo) {
 
         BufferedReader br = null;

@@ -47,17 +47,20 @@ public class PrincipalController {
         // mostrar(archivosdata.cargarArrayColumna(from));
         // mostrar(archivosdata.cargarArrayDato(from));
         // model.addAttribute("query",query(select,from,where));
-        model.addAttribute("listQuery", matrizToArray(query(select, from, where)));
+        model.addAttribute("listQuery", mostrarMatriz(query(select, from, where)));
+        System.out.println(matrizToArray(query(select, from, where)));
         return "Principal";
     }
 
-    public void mostrarMatriz(String[][] m) {
+    public String mostrarMatriz(String[][] m) {
+        String result="";
         for (int i = 0; i < m.length; i++) {
             for (int j = 0; j < m[i].length; j++) {
 
-                System.out.println("" + m[i][j]);
+                 result+= m[i][j];
             }
         }
+        return result;
     }
 
     public void mostrar(ArrayList<java.lang.String> consulta) {
@@ -218,8 +221,8 @@ public class PrincipalController {
     public ArrayList<String> matrizToArray(String[][] datos) {
         ArrayList<String> res = new ArrayList<>();
         for (int i = 0; i < datos.length; i++) {
-            for (int j = 0; j < datos[i].length; j++) {
-                res.add(datos[i][j] + "\n");
+            for (int j = 0; j < datos[0].length; j++) {
+                res.add(datos[i][j]);
             }
         }
         return res;

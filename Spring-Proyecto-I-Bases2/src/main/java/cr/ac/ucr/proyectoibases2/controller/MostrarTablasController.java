@@ -1,5 +1,6 @@
 package cr.ac.ucr.proyectoibases2.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -7,9 +8,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -30,7 +34,15 @@ public class MostrarTablasController {
 
         return "MostrarTablas";
     }
-
+    
+    @RequestMapping(value = "/eliminarTablas/{nombreArchivo}/**", method = RequestMethod.GET)
+    public String EliminaTabla(Model model, HttpServletRequest request){
+        String nombre= new AntPathMatcher().extractPathWithinPattern("/{nombreArchivo}/**", request.getRequestURI());
+        String unionDireccion="src/main/resources/static/files/"+nombre+".csv";
+        File direccion= new File(unionDireccion);
+        archivosdata.eliminarArchivo(direccion);
+        return "Elimina";
+        }
     public void recorreArrayNombre(ArrayList<java.lang.String> nombre) {
         if (nombre.isEmpty()) {
             System.out.println("vacio");
