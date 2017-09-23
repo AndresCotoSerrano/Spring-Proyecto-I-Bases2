@@ -223,8 +223,8 @@ public class PrincipalController {
     public ArrayList<String> matrizToArray(String[][] datos) {
         ArrayList<String> res = new ArrayList<>();
         for (int i = 0; i < datos.length; i++) {
-            for (int j = 0; j < datos[0].length; j++) {
-                res.add(datos[i][j]);
+            for (int j = 0; j < datos[i].length; j++) {
+                res.add(datos[i][j] + "\n");
             }
         }
         return res;
